@@ -1,0 +1,233 @@
+{% extends 'index.html' %}
+{% block asset-add %}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><i class="fa  fa-desktop"></i> 资产添加</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   	 质量部服务器备份
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                   		<div class="col-lg-2">
+                   		</div>
+                        <div class="col-lg-8">
+			<fieldset>
+			<legend>质量部服务器备份 - 必填信息</legend>
+				 {% if message %}
+                  			<div class="alert alert-warning">{{ message }}</div>
+{% endif %}
+
+ 
+			<form action="asset_add" method="post" class="main form-horizontal">
+			{% csrf_token %}
+  	   			<div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_name.id_for_label }}">设备名称:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_name }}
+      						{{ form.asset_name.errors }}
+    					</div>
+				</div>
+	
+				<div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_sou_ip.id_for_label }}">源IP:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_sou_ip }}
+      						{{ form.asset_sou_ip.errors }}
+    					</div>
+
+				</div>
+  	   			<div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_sou_dir.id_for_label }}">源目录:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_sou_dir }}
+      						{{ form.asset_sou_dir.errors }}
+    					</div>
+				</div>
+  	   			<div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_des_ip.id_for_label }}">目标IP:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_des_ip }}
+      						{{ form.asset_des_ip.errors }}
+    					</div>
+				</div>
+  	   			<div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_des_dir.id_for_label }}">目标目录:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_des_dir }}
+      						{{ form.asset_des_dir.errors }}
+    					</div>
+				</div>
+                <div class="form-group">
+      					<label class= "col-sm-2 control-label" for="{{ form.asset_cron.id_for_label }}">计划任务:</label>
+    					<div class="col-sm-6">
+      						{{ form.asset_cron }}
+      						{{ form.asset_cron.errors }}
+    					</div>
+				</div>
+
+
+				<div class="form-group">
+                                        <label class="col-sm-3 control-label"></label>
+                                             <button type="reset"  class="btn btn-default" >撤销操作</button>
+                                             <button type="submit" class="btn btn-default" >确认提交</button>
+                                </div>
+
+</form>
+
+                	</fieldset>
+                </div>
+
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+
+
+<script type="text/javascript"> 
+	$(function () { $("[data-toggle='tooltip']").tooltip(); });
+	
+	function getFormData (form, filler) {
+		var assets = {};
+		var server = {};
+		var net = {};
+		for (var i = 0; i < form.length; ++i) {
+			var name = form[i].name;
+			var value = form[i].value;
+			if (name.length == 0)
+				continue;
+			if (value.length == 0) {
+				if ((typeof filler != 'string') || (filler.length == 0))
+					continue;
+				else
+					value = filler;
+			}
+			var assetStart = name.indexOf("asset_");
+			var serverStart = name.indexOf("server_");
+			var netStart = name.indexOf("net_");
+			if (assetStart==0){
+				var asz = "assets."+name.replace("asset_","")+" = '" + value + "'";
+				try {
+					eval(asz);
+				} catch (e) {
+					alert(e);
+				}
+			}
+			else if(serverStart==0){
+				var ssz = "server."+name.replace("server_","")+" = '" + value + "'";
+				try {
+					eval(ssz);
+				} catch (e) {
+					alert(e);
+				}
+			}			
+			else if(netStart==0){
+				var nsz = "net."+name.replace("net_","")+" = '" + value + "'";
+				try {
+					eval(nsz);
+				} catch (e) {
+					alert(e);
+				}
+			}
+			
+		}
+		if (assets.assets_type == "server"){
+			server.assets = assets;
+			return server;		
+		}
+		else {
+			net.assets = assets;
+			return net;
+		}
+	}
+	
+	function oBtAssetsType() {
+		   var obj = document.getElementById("assets_type_select"); 
+		   var index = obj.selectedIndex;
+		   var value = obj.options[index].value; 
+		   if (value=="server"){
+			   document.getElementById("asset_server_chioce").style.display = "";  
+			   document.getElementById("asset_net_chioce").style.display = "none";		   
+		   }
+		   else if (value==""){
+			   document.getElementById("asset_net_chioce").style.display = "none";
+			   document.getElementById("asset_server_chioce").style.display = "none";
+		   }
+		   else {
+			   document.getElementById("asset_net_chioce").style.display = "";
+			   document.getElementById("asset_server_chioce").style.display = "none";	
+		   }
+	}
+
+	function oBtAuthType() {
+		   var obj = document.getElementById("auth_type_select"); 
+		   var index = obj.selectedIndex;
+		   var value = obj.options[index].value; 
+		   if (value=="0"){
+			   document.getElementById("auth_accout_select").style.display = "";  	   
+		   }
+		   else {
+			   document.getElementById("auth_accout_select").style.display = "none";	
+		   }
+	}	
+	
+	function addAssetsData(obj) {
+		var form = document.getElementById('addHost');
+		for (var i = 0; i < form.length; ++i) {
+			var name = form[i].name;
+			var value = form[i].value;
+			var assetStart = name.indexOf("asset_");
+			if (assetStart==0 && value.length == 0){
+				window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+				return false;
+			}
+			
+		};
+		var asset_data = getFormData(document.getElementById('addHost'),'');
+//	 	alert(JSON.stringify(asset_data));
+		var btnObj = $(obj);
+		if (asset_data.assets.assets_type=="server"){
+			var putUrl = '/api/server/';
+		}
+		else {
+			var putUrl = '/api/net/';
+		}
+		$.ajax({
+			dataType: "JSON",
+			url:putUrl, //请求地址
+			type:"POST",  //提交类似
+			contentType: "application/json",
+			data: JSON.stringify({
+				'data':asset_data
+			}),  //提交参数
+			success:function(response){
+				window.wxc.xcConfirm("资产添加成功", window.wxc.xcConfirm.typeEnum.success);
+			},
+	    	error:function(response){
+	    		window.wxc.xcConfirm("添加资产失败~", window.wxc.xcConfirm.typeEnum.error);
+	    	}
+		})	
+	}	
+	
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd'});
+
+	
+</script>
+{% endblock %}

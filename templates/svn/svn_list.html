@@ -1,0 +1,136 @@
+{% extends 'index.html' %}
+{% block asset-add %}
+	<div id="page-wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">配置库信息</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             {% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table style="width:150%"  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+					<th width="5%">创建时间</th>
+                                        <th width="3%">仓库名</th>
+                                        <th width="3%">库类别</th>
+                                        <th width="4%">公司</th>
+                                        <th width="5%">中文名</th>
+                                        <th width="8%">配置库地址</th>
+                                        <th width="8%">JIRA</th>
+                                        <th width="10%">注释</th>
+					<th width="10%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for svn in svn_list %}
+                                    <tr class="odd gradeX">
+					<td width="8%">{{ svn.created_time}}</td>
+                                        <td width="6%">{{ svn.svn_enname}}</td>
+                                        <td width="6%">{{ svn.code_type}}</td>
+                                        <td width="6%">{{ svn.svn_company|linebreaksbr}}</td>
+                                        <td width="8%">{{ svn.svn_zhname}}</td>
+                                        <td width="15%">{{ svn.svn_url|linebreaksbr }}</td>
+                                        <td width="8%">{{ svn.jira_url}}</td>
+                                        <td width="15%">{{ svn.note }}</td>
+                                        <td width="5">
+					<a href="/svn_mod/{{ svn.pk }}" style="text-decoration:none;"><button  type="button" class="btn btn-default"><abbr title="修改资料"><i class="glyphicon glyphicon-edit"></button></i></abbr></a>
+					<a href="/svn_delete/{{ svn.pk }}" style="text-decoration:none;"><button type="botton" onclick="javascript:return del();" class=btn btn-default><abbr title="删除"><i class="glyphicon glyphicon-trash"></button></i></abbr><a/>
+					</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                            <div class="well">
+                                <h4>配置库信息</h4>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    {% block script %}
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.flash.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.js"></script>
+    {% endblock script %}
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+	$(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            "lengthMenu": [[20,50,100, 150, 200, -1], [20,50,100, 150, 200, "所有"]],
+          "scrollX":true,
+            bAutoWidth: true,
+            "order": [[ 0, "desc" ]],
+            dom: 'Blfrtip',    <!-- 有这句话才会展示button！！！ -->
+            buttons: [
+        {
+            extend: 'excel',
+            text: '导出Excel',
+            exportOptions: {
+                modifier: {
+                    page: 'current'
+                }
+            }
+        }
+    ]
+
+        });
+    });
+	function del() {
+		var msg = "您真的确定要删除吗？\n\n请确认！";
+		if (confirm(msg)==true){
+			return true;
+		}else{
+			return false;
+
+		}
+		}
+
+    </script>
+{% endblock asset-add %}
