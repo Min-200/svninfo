@@ -147,7 +147,7 @@ def svn_mod(request, pk):
             svn.svn_zhname = form.cleaned_data['svn_zhname']
             svn.svn_url = form.cleaned_data['svn_url']
             svn.jira_url = form.cleaned_data['jira_url']
-            svn.codeType = form.cleaned_data['CodeType']
+            svn.code_type = form.cleaned_data['CodeType']
             svn.note = form.cleaned_data['note']
             svn.save()
             return redirect('/svnlist.html')      
