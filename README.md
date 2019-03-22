@@ -23,4 +23,23 @@
 	pip install paramiko
 	python manage.py makemigrations
 	pip install MySQL-python
+	pip install django-crontab
+	
+##django-crontab使用
+	pip install django-crontab
+	 在settings中添加 
+	INSTALLED_APPS = (
+       ...
+       'django_crontab',
+   )
+   	在app内新建py文件，文件名称随意。
+	例如我们在名为ci的app下新建了一个core.py文件。
+		def task():
+   			#要执行的任务函数
+	CRONJOBS = [
+    	('*/1 * * * *', 'ci.core.updatestatus','>> /var/core.log')
+	]
 
+	python manage.py crontab add
+	python manage.py crontab show
+	python manage.py crontab remove
