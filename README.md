@@ -25,7 +25,7 @@
 	pip install MySQL-python
 	pip install django-crontab
 	
-	django-crontab使用
+## django-crontab使用
 	pip install django-crontab
 	 在settings中添加 
 	INSTALLED_APPS = (
