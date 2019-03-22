@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'asset',
     'task',
     'subversion',
+    'ci',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ DATABASES = {
         'NAME': 'shield',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '192.168.1.1',          #mysql username password
+        'HOST': '172.17.33.183',
         'PORT': '3306'
 
     }
@@ -127,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRONJOBS = [
+    ('*/1 * * * *', 'ci.core.updatestatus','>> /var/core.log')
+]

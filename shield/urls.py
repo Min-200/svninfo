@@ -20,6 +20,8 @@ from asset.views import index, asset_list , asset_add, flot, morris,asset_l, ass
 #from task.views import task_execute,task_add,task_list,task_delete,host_list
 from userinfo.views import *
 from subversion.views import *
+from ci.views import *
+
 app_name = 'shield'
 
 urlpatterns = [
@@ -42,5 +44,12 @@ urlpatterns = [
     url(r'^svnlist',svnlist),
     url(r'^svn_add',svn_add),
     url(r'^svn_delete/(?P<pk>[0-9]+)/$', svn_delete),
-    url(r'^svn_mod/(?P<pk>[0-9]+)/$', svn_mod)
+    url(r'^svn_mod/(?P<pk>[0-9]+)/$', svn_mod),
+    url(r'^build_list',Buildlist),
+    url(r'^job_refresh',Buildrefresh),
+    url(r'^job_build/(?P<pk>[0-9]+)/$',Tbuild),
+    url(r'^Tbuild_list',Tbuild),
+   # url(r'^build',Build),
+    url(r'^build_job/(?P<pk>[0-9]+)/$', build_job)
+    
 ]

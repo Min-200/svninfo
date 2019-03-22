@@ -3,10 +3,10 @@ exec 1>>/home/svn.log
 exec 2>>/home/svn.log
 
 date
-svndir="/SvnRepos/svn"
-hook="$svndir/LMK/hooks/pre-commit"
+svndir="/opt/svn"
+hook="$svndir/AAA/hooks/pre-commit"
 
-ip="192.168.104.185"
+ip="192.168.1.1"
 
 
 #备份

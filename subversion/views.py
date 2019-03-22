@@ -23,7 +23,7 @@ def SSH(svnname,filename):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     #ssh.connect(hostname=host, port=22, username=username, password=password)
-    ssh.connect(hostname='192.168.1.1', port=22, username="root", password="123456")
+    ssh.connect(hostname='192.168.104.185', port=22, username="root", password="123456")
     print "start command"
     #command = 'cd /data/svn/ && sh /data/svn/svn_create.sh %s /var/tmp/svnupload/%s' %(svnname,filename)
     #command = 'cd /data/svna/ && sh /data/svn/svn_create.sh %s /var/tmp/svnupload/%s' %(svnname,filename)
@@ -35,9 +35,9 @@ def SSH(svnname,filename):
 
 
 
-@login_required()
+#@login_required()
 def svnlist(request):
-	svn_list = Subversion.objects.all()
+	svn_list = Subversion.objects.all().order_by('-id') 
 	return render(request, 'svn/svn_list.html',context ={ 'svn_list': svn_list})
 
 @login_required()
@@ -81,11 +81,11 @@ def svn_add(request):
 				
 				if codeType == "SVN":
                             		print "执行脚本"
-					cmd = "scp ./svnupload/%s 192.168.1.1:/var/tmp/svnupload" %(File.name)
+					cmd = "scp ./svnupload/%s 192.168.104.185:/var/tmp/svnupload" %(File.name)
 					os.system(cmd)
 					SSH(svnname=svn_enname,filename=File.name)
 					time.sleep(7)				
-					cmd1 = "scp 192.168.1.2:/home/newpeople.txt /opt/svninfo/newpeople.txt"
+					cmd1 = "scp 192.168.104.185:/home/newpeople.txt /opt/svninfo/newpeople.txt"
 					os.system(cmd1)
                 		print "添加记录"
 				
@@ -134,9 +134,11 @@ def svn_add(request):
 
 
 
+@login_required()
 def svn_mod(request, pk):
     svn = Subversion.objects.get(pk=pk)
-  
+    
+    print svn.svn_enname,svn.svn_company,svn.svn_url,svn.svn_zhname,svn.jira_url,svn.note,svn.code_type
     if request.method == "POST":
         form = forms.SvnInfo(request.POST, initial=[
             {'svn_enname': svn.svn_enname, 'svn_company': svn.svn_company, 'svn_zhname': svn.svn_zhname,
@@ -166,6 +168,7 @@ def svn_mod(request, pk):
 
 
 
+@login_required()
 def svn_delete(request,pk):
     svn=Subversion.objects.get(pk=pk)
     svn.delete()

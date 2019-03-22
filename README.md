@@ -6,7 +6,12 @@ SVN服务器上的日志 /home/svn.log
 djangolog     /opt/svninfo/newpeople.txt
 
 
-apt-get install libmysqlclient-dev
-pip install paramiko
-python manage.py makemigrations
-pip install MySQL-python
+
+## apt-get install libmysqlclient-dev
+## pip install paramiko
+## python manage.py makemigrations
+## pip install MySQL-python
+
+超级用户
+qa
+zjxl112233

@@ -30,7 +30,7 @@ def task_execute(request):
 				print task_target
 				ssh = paramiko.SSHClient()
 				ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-				ssh.connect(hostname=task_target, port=22, username='root', password='zjxl2018#')
+				ssh.connect(hostname=task_target, port=22, username='root', password='123456')
 				stdin, stdout, stderr = ssh.exec_command(task_agrs)
 				succ_result = stdout.read()
 				print succ_result
@@ -66,7 +66,7 @@ def task_add(request):
 			try:	
 				ssh = paramiko.SSHClient()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(hostname=task_host, port=22, username='root', password='123456#')
+                                ssh.connect(hostname=task_host, port=22, username='root', password='zjxl2018#')
 				command = 'echo "%s" >> /etc/crontab' %(task_command)
 				print task_command
                                 stdin, stdout, stderr = ssh.exec_command(command)
