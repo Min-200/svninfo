@@ -6,9 +6,9 @@
 	3.服务器的备份信息--- 功能和上差不多 增删改查
 	4.DEVOPS CI部分，具体介绍如下
 ## ci部分
-1.使用python-jenkins模块,获取所有的jenkins构建job,并将其写入Joblist这个库
-2.在页面展示Joblist库的信息，点击一条记录，触发远程的jenkins构建，同时将该构建的 任务名称、构建号、构建状态、构建时间、构建日志地址 写入数据库Triggerbuild记录
-3.使用django-crontab 在ci的core.py中 实现在后台每分钟查询 Triggerbuild 这个库中构建状态是loading的记录，获取该记录的 任务名称和构建号， 调用python-jenkins模块 去查询该任务的构建结果，如果成功则获取包url写到Packageurl这个库中，每个包一个记录，通过外键id对应
+	1.使用python-jenkins模块,获取所有的jenkins构建job,并将其写入Joblist这个库
+	2.在页面展示Joblist库的信息，点击一条记录，触发远程的jenkins构建，同时将该构建的 任务名称、构建号、构建状态、构建时间、构建日志地址 写入数据库	Triggerbuild记录
+	3.使用django-crontab 在ci的core.py中 实现在后台每分钟查询 Triggerbuild 这个库中构建状态是loading的记录，获取该记录的 任务名称和构建号， 调		用python-jenkins模块 去查询该任务的构建结果，如果成功则获取包url写到Packageurl这个库中，每个包一个记录，通过外键id对应
 		
 
 ## 相关日志
