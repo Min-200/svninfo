@@ -43,3 +43,11 @@
 	python manage.py crontab add
 	python manage.py crontab show
 	python manage.py crontab remove
+
+
+展示图片
+
+![](https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133120.png)
+![](https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133137.png)
+![](https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133256.png)
+![](https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133331.png)
