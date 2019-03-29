@@ -44,4 +44,5 @@
 	python manage.py crontab show
 	python manage.py crontab remove
 ##
-	![]https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133120.png
+	
+	![](https://github.com/shiminde/svninfo/blob/master/images/QQ%E5%9B%BE%E7%89%8720190329133120.png)
