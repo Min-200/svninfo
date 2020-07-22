@@ -20,6 +20,7 @@
 
 ## 安装
 	apt-get install libmysqlclient-dev
+        yum -y install mysql-devel 
 	pip install paramiko
 	python manage.py makemigrations
 	pip install MySQL-python
