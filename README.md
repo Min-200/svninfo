@@ -24,6 +24,7 @@
 	pip install paramiko
 	python manage.py makemigrations
 	pip install MySQL-python
+	yum install python-devel
 	pip install django-crontab
 	
 ## django-crontab使用
